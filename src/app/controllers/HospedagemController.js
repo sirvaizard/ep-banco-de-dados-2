@@ -23,7 +23,7 @@ class HospedagemController {
             WHERE IDHOSPEDAGEM = ${id}
         `)
 
-        if (!hospedagem) {
+        if (!hospedagem.length) {
             return res.status(400).json({
                 error: 'Hospedagem não existe.'
             })

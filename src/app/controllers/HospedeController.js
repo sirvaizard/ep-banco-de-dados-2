@@ -21,7 +21,7 @@ class HospedeController {
             WHERE IDHOSPEDE = ${id}
         `)
 
-        if (!hospede) {
+        if (!hospede.length) {
             return res.status(400).json({
                 error: 'Hospede não existe.'
             })
