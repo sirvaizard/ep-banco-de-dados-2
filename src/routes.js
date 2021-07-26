@@ -8,5 +8,6 @@ const routes = new Router()
 routes.get('/', (req, res) => res.end('Hello world!'))
 routes.get('/checkout/:id', CheckoutController.show)
 routes.get('/hospedagens', HospedagemController.index)
+routes.get('/hospedagens/:id', HospedagemController.show)
 
 export default routes
