@@ -1,3 +1,7 @@
+import { sql } from '@databases/pg'
+
+import db from '../../database/index.js'
+
 class HospedagemController {
     async index (req, res) {
         const hospedagens = await db.query(sql`
