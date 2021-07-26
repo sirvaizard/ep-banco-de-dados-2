@@ -1,6 +1,6 @@
 class HospedagemController {
     async index (req, res) {
-        const hospedagens = await debug.query(sql`
+        const hospedagens = await db.query(sql`
             SELECT *
             FROM HOSPEDAGEM
             WHERE CHECKIN <= CURRENT_DATE AND
