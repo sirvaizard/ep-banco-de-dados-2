@@ -17,7 +17,8 @@ class CheckoutController {
         }
 
         const valorTotal = await db.query(sql`
-            SELECT IDHOSPEDAGEM, 
+            SELECT IDHOSPEDAGEM, ID_HOSPEDE_RESP, NUM_QUARTO, CHECKIN, CHECKOUT,
+            VALOR_TOTAL_PAGO, DATA_PAGAMENTO, 
             COUNT(*) * C.QUANTIDADE AS QTD_PRATOS, 
             SUM(C.VALOR_COBRADO * C.QUANTIDADE) AS VALOR_TOTAL_COMIDA, 
             Q.VALOR_DIARIA * (CURRENT_DATE - HP.CHECKIN) AS VALOR_TOTAL_ESTADIA,
@@ -28,8 +29,8 @@ class CheckoutController {
             INNER JOIN QUARTOS Q
             ON HP.NUM_QUARTO = Q.NUMQUARTO
             WHERE HP.CHECKIN <= CURRENT_DATE AND IDHOSPEDAGEM = ${id}
-            AND CHECKOUT IS NULL
-            GROUP BY HP.IDHOSPEDAGEM, C.QUANTIDADE, Q.VALOR_DIARIA, HP.CHECKIN;        
+            GROUP BY HP.IDHOSPEDAGEM, C.QUANTIDADE, Q.VALOR_DIARIA, HP.CHECKIN,
+            HP.ID_HOSPEDE_RESP, HP.NUM_QUARTO;        
         `)
 
         return res.status(200).json(valorTotal[0])
