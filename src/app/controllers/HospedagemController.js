@@ -29,7 +29,7 @@ class HospedagemController {
             })
         }
 
-        return res.status(200).json(hospedagem)
+        return res.status(200).json(hospedagem[0])
     } 
 }
 
