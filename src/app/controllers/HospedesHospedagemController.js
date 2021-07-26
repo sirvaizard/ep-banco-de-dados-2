@@ -29,3 +29,5 @@ class HospedesHospedagemControlller {
         return res.status(200).json(hospedagem[0])
     }
 }
+
+export default new HospedesHospedagemControlller()
