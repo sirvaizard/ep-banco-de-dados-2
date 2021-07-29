@@ -16,15 +16,23 @@ class HospedesHospedagemControlller {
             })
         }
 
+        const hospedeResponsavel = await db.query(sql`
+            SELECT *
+            FROM HOSPEDES
+            WHERE IDHOSPEDE = ${hospedagem[0].id_hospede_resp}
+        `)
+
         const hospedes = await db.query(sql`
-            SELECT * 
+            SELECT IDHOSPEDE, NOME, CPF, NASC, SEXO, CELULAR
             FROM HOSPEDES H
             INNER JOIN HOSPEDE_FILIAL HF
             ON ID_HOSPEDE = IDHOSPEDE
             WHERE HF.ID_HOSPEDAGEM = ${id}
         `)
 
-        hospedagem[0].hospedes = hospedes
+        delete hospedagem[0].id_hospede_resp
+        hospedagem[0].hospedes = [...hospedes, hospedeResponsavel[0]]
+        hospedagem[0].hospedeResponsavel = hospedeResponsavel[0]
 
         return res.status(200).json(hospedagem[0])
     }
